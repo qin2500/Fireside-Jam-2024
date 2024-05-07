@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -14,4 +13,4 @@ public class TileInfo : ScriptableObject
     public Tile tile;
     public string[] tags;
     public GameTile gameTile;
-}
+}   

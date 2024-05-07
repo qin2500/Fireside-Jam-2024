@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 10
   name: House
-  description: Gives +1 every turn
-  cost: 0
+  description: Gives +1
+  cost: 10
   tile: {fileID: 11400000, guid: 7b9b655b5d8f9ff4eb0a6356f0b85c04, type: 2}
   tags:
-  - house
+  - House
+  gameTile: {fileID: 11400000, guid: 2a237e55290cb9043811300fb9c5eb51, type: 2}

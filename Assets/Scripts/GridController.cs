@@ -33,8 +33,6 @@ public class GridController : MonoBehaviour
         random = new System.Random(System.DateTime.UtcNow.ToString().GetHashCode());
         initGrid();
         drawGrid();
-      
-
     }
 
     // Update is called once per frame
@@ -68,11 +66,13 @@ public class GridController : MonoBehaviour
     void initGrid()
     {
         grid = new TileInfo[grid_width, grid_height];
+        incomeGrid = new int[grid_width, grid_height];
         for (int i=0; i < grid.GetLength(0); i++)
         {
             for(int j=0; j < grid.GetLength(1); j++)
             {
                 grid[i, j] = null;
+                incomeGrid[i, j] = 0;
             }
         }
     }
@@ -99,6 +99,33 @@ public class GridController : MonoBehaviour
                 else tile = gameTile.tile;
 
                 tileMap.SetTile(new Vector3Int(i-grid_width/2,j-grid_height/2,0), tile);
+            }
+        }
+    }
+
+    public int evaluateGrid()
+    {
+        int total = 0;
+        for (int i=0; i<incomeGrid.GetLength(0); i++ )
+        {
+            for (int j=0; j<incomeGrid.GetLength(1); j++)
+            {
+                if (grid[i, j] == null) continue;
+                Debug.Log(i + " | " + j);
+                incomeGrid[i, j] = grid[i, j].gameTile.activate(new Vector2Int(i,j), grid, incomeGrid);
+                total += incomeGrid[i, j];
+            }
+        }
+        return total;
+    }
+
+    public void resetIncomeGrid()
+    {
+        for (int i = 0; i < incomeGrid.GetLength(0); i++)
+        {
+            for (int j = 0; j < incomeGrid.GetLength(1); j++)
+            {
+                incomeGrid[i, j] = 0;
             }
         }
     }

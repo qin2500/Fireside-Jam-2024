@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface GameTile
+public abstract class GameTile : ScriptableObject, Activatable
 {
-    public int activate(Vector2Int position, TileInfo[,] grid);
+    public abstract int activate(Vector2Int position, TileInfo[,] grid, int[,] incomeGrid);
 }

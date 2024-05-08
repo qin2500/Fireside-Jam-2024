@@ -25,6 +25,7 @@ public class MoneyUI : MonoBehaviour
     private Queue<int> valuePoolsList = new Queue<int>();
     private int currentBatchSize;
     private int batchCount;
+    private bool isUpdating;
 
 
     private void Awake()
@@ -63,13 +64,13 @@ public class MoneyUI : MonoBehaviour
 
     public void updateMoneyUI(int[,] incomeGrid, Vector2[,] worldLoopUp, float cellSize)
     {
+        isUpdating = true;
         generateValuePools(incomeGrid, worldLoopUp);
         updateMoney(cellSize);
     }
 
     private void updateMoney(float cellSize)
     {
-        Debug.Log(valuePoolsList.ToCommaSeparatedString());
         if(valuePoolsList.Count > 0)
         {
             batchCount ++ ;
@@ -93,6 +94,7 @@ public class MoneyUI : MonoBehaviour
             currentBatchSize = 0;
             coinValuePools.Clear();
             valuePoolsList.Clear();
+            isUpdating= false;
         }
     }
 
@@ -150,5 +152,10 @@ public class MoneyUI : MonoBehaviour
         Vector3 worldPosition = new Vector3(uiPosition.x, uiPosition.y, 0);
         worldPosition = Camera.main.ScreenToWorldPoint(worldPosition);
         return worldPosition;
+    }
+
+    public bool getIsUpdating()
+    {
+        return isUpdating;
     }
 }

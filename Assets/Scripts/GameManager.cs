@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     
     public void advanceTurn()
     {
+        if (uiManager.GetMoneyUI().getIsUpdating()) return;
+        Debug.Log("Advancing to next day...");
         //Evaluate the grid
         int gridValue = gridController.evaluateGrid();
         int[,] incomeTable = gridController.getIncomeTable();

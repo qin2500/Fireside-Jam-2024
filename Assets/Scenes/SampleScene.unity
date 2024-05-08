@@ -1525,6 +1525,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moneyBuffer: 0
   moneyCountUI: {fileID: 2032827588}
+  animatedCoin: {fileID: 6245429777616124596, guid: 409bc2775c4bc1e49ab712b06c178b4f, type: 3}
+  coinPoolSize: 100
+  coinUIPosition: {fileID: 2032827587}
+  coinAnimationLength: 5
 --- !u!1 &2032827586
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private int daysLeft = 1000;
-    private int money;
+    public int money;
     private int debt;
     
     public GridController gridController;
@@ -14,10 +14,15 @@ public class GameManager : MonoBehaviour
     
     public void advanceTurn()
     {
+        //Evaluate the grid
         int gridValue = gridController.evaluateGrid();
+        int[,] incomeTable = gridController.getIncomeTable();
         money += gridValue;
-        uiManager.setMoneyBuffer(gridValue);
 
+        //Update money ui
+        uiManager.GetMoneyUI().updateMoneyUI(incomeTable, gridController.getRealWorldPosLookUp(), gridController.getCellSize());
+
+        //Update debt and days left
         daysLeft -= 1;
         if(daysLeft == 0)
         {

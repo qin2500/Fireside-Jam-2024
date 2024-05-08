@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using UnityEngine.UI;
 public class GridController : MonoBehaviour
 {
     public TileInfo house;
+    public TileInfo house2;
 
     public Tilemap tileMap;
     public Tile mainGrass;  //Main grass tile
@@ -20,12 +22,15 @@ public class GridController : MonoBehaviour
     public int grid_height;
     private int[,] incomeGrid;
     private TileInfo[,] grid;
+    private Vector2[,] realWorldPosLookUp; //Table used to look up realworld position of tiles
 
     private System.Random random;
     public Vector2Int curMousePos; //Mouse pos in grid world
     private Vector2Int prvMousePos; //Used to keep track of the cursor's previous position
     [SerializeField]
     private GameObject hoverImage; //Image used for hover effect
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +65,10 @@ public class GridController : MonoBehaviour
         {
             instantiateTile(house, curMousePos);
         }
+        if (Input.GetMouseButtonDown(1))
+        {
+            instantiateTile(house2, curMousePos);
+        }
 
     }
 
@@ -67,12 +76,14 @@ public class GridController : MonoBehaviour
     {
         grid = new TileInfo[grid_width, grid_height];
         incomeGrid = new int[grid_width, grid_height];
+        realWorldPosLookUp = new Vector2[grid_width, grid_height];
         for (int i=0; i < grid.GetLength(0); i++)
         {
             for(int j=0; j < grid.GetLength(1); j++)
             {
                 grid[i, j] = null;
                 incomeGrid[i, j] = 0;
+                realWorldPosLookUp[i, j] = new Vector2(0,0);
             }
         }
     }
@@ -99,6 +110,9 @@ public class GridController : MonoBehaviour
                 else tile = gameTile.tile;
 
                 tileMap.SetTile(new Vector3Int(i-grid_width/2,j-grid_height/2,0), tile);
+
+                Vector3 tileWorldPos = tileMap.CellToWorld(new Vector3Int(i - grid_width / 2, j - grid_height / 2, 0));
+                realWorldPosLookUp[i,j] = tileWorldPos;
             }
         }
     }
@@ -110,8 +124,11 @@ public class GridController : MonoBehaviour
         {
             for (int j=0; j<incomeGrid.GetLength(1); j++)
             {
-                if (grid[i, j] == null) continue;
-                Debug.Log(i + " | " + j);
+                if (grid[i, j] == null)
+                {
+                    incomeGrid[i, j] = 0;
+                    continue;
+                }
                 incomeGrid[i, j] = grid[i, j].gameTile.activate(new Vector2Int(i,j), grid, incomeGrid);
                 total += incomeGrid[i, j];
             }
@@ -165,5 +182,18 @@ public class GridController : MonoBehaviour
         return new Vector2Int(gridWorldPos.x + grid_width / 2, gridWorldPos.y + grid_height / 2);
     }
 
-   
+    public int[,] getIncomeTable()
+    {
+        return incomeGrid;
+    }
+    public Vector2[,] getRealWorldPosLookUp()
+    {
+        return realWorldPosLookUp;
+    }
+    public float getCellSize()
+    {
+        return tileMap.cellSize.x;
+    }
+
+
 }

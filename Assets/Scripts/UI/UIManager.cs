@@ -6,8 +6,8 @@ public class UIManager : MonoBehaviour
 {
     public MoneyUI moneyUI;
 
-    public void setMoneyBuffer(int amount)
+    public MoneyUI GetMoneyUI()
     {
-        moneyUI.setMoneyBuffer(amount);
+        return moneyUI;
     }
 }

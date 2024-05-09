@@ -16,7 +16,7 @@ MonoBehaviour:
   name: House2
   description: Penis
   cost: 100
-  tile: {fileID: 11400000, guid: 7b9b655b5d8f9ff4eb0a6356f0b85c04, type: 2}
+  tile: {fileID: 11400000, guid: 484bca9603f3f3a4785ebc50e7779ef3, type: 2}
   tags:
   - House2
   gameTile: {fileID: 11400000, guid: 857e1e71e1fb1174cbc5f5e41c1de5cd, type: 2}

@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
-using UnityEditor.Profiling;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;

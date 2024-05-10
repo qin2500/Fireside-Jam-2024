@@ -9,7 +9,6 @@ public class House : GameTile
 {
     public override int activate(Vector2Int position, TileInfo[,] grid, int[,] incomeGrid)
     {
-        Debug.Log("Evaluating Hosue at : i = " + position.x + " and j = " + position.y  );
         int count = 0;
         int i = position.x;
         int j = position.y;
@@ -30,7 +29,6 @@ public class House : GameTile
 
     private int permuteJ (int i, int j, TileInfo[,] grid, string tag)
     {
-        Debug.Log(i + " | " + j);
         int count = 0;
         if (grid[i,j] != null && grid[i, j].tags.Contains(tag)) count++;
         if (j - 1 >= 0 && grid[i, j-1] != null && grid[i, j - 1].tags.Contains(tag)) count++;

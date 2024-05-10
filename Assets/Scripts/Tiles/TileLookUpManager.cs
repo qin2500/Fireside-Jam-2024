@@ -9,6 +9,7 @@ public class TileLookUpManager : MonoBehaviour
 
     private void Start()
     {
+        lookUpTable= new Dictionary<int, TileInfo>();
         foreach (TileInfo i in allTiles)
         {
             lookUpTable.Add(i.id, i);

@@ -23,11 +23,17 @@ public class GridController : MonoBehaviour
     private TileInfo[,] grid;
     private Vector2[,] realWorldPosLookUp; //Table used to look up realworld position of tiles
 
+    private bool buildMode = false;
+    private TileInfo buildBrush = null;
+    public GameObject newTurnButton;
+    public GameObject buildModeText;
+
     private System.Random random;
     public Vector2Int curMousePos; //Mouse pos in grid world
     private Vector2Int prvMousePos; //Used to keep track of the cursor's previous position
     [SerializeField]
     private GameObject hoverImage; //Image used for hover effect
+
 
     
 
@@ -60,13 +66,12 @@ public class GridController : MonoBehaviour
             hoverImage.SetActive(false);
         else hoverImage.SetActive(true);
 
-        if(Input.GetMouseButtonDown(0))
+        
+
+        if (buildMode)
         {
-            instantiateTile(house, curMousePos);
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            instantiateTile(house2, curMousePos);
+            if(Input.GetMouseButtonDown(0))
+                buildTile(buildBrush, curMousePos);
         }
 
     }
@@ -146,6 +151,30 @@ public class GridController : MonoBehaviour
         }
     }
 
+    public  void setBuildMode(TileInfo tile)
+    {
+        this.buildMode = true;
+        this.buildBrush = tile;
+        this.buildModeText.SetActive(true);
+    }
+
+    public void disableBuildMode()
+    {
+        this.buildMode = false;
+        this.buildBrush = null;
+        this.buildModeText.SetActive(false);
+        this.newTurnButton.SetActive(true);
+    }
+
+    public void buildTile(TileInfo tile, Vector2Int gridWorldPos)
+    {
+        Vector2Int arrPos = gridToArrayPos(gridWorldPos);
+        if (grid[arrPos.x, arrPos.y] != null) return;
+
+        instantiateTile(tile, gridWorldPos);
+        disableBuildMode();
+    }
+
     void instantiateTile(TileInfo tileInfo, Vector2Int gridWorldPos)
     {
         if (cursorOutsideBounds()) return;
@@ -153,6 +182,7 @@ public class GridController : MonoBehaviour
         grid[arrPos.x, arrPos.y] = tileInfo;
         tileMap.SetTile(new Vector3Int(gridWorldPos.x, gridWorldPos.y, 0), tileInfo.tile);
     }
+
 
 
     private Boolean cursorOutsideBounds()

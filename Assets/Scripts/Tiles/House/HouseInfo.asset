@@ -20,3 +20,5 @@ MonoBehaviour:
   tags:
   - House
   gameTile: {fileID: 11400000, guid: 2a237e55290cb9043811300fb9c5eb51, type: 2}
+  lateEval: 0
+  weight: 10

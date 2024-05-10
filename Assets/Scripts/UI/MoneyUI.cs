@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 
 public class MoneyUI : MonoBehaviour
 {
+    public GameManager gameManager;
     public int moneyBuffer =0;
     private int amountDisplayed =0;
     public TMP_Text moneyCountUI;
@@ -48,7 +49,12 @@ public class MoneyUI : MonoBehaviour
             moneyBuffer -= 1;
             moneyCountUI.text = amountDisplayed.ToString();
         }
-        
+        else if (moneyBuffer < 0)
+        {
+            amountDisplayed -= 1;
+            moneyBuffer += 1;
+            moneyCountUI.text = amountDisplayed.ToString();
+        }
 
     }
 
@@ -95,6 +101,7 @@ public class MoneyUI : MonoBehaviour
             coinValuePools.Clear();
             valuePoolsList.Clear();
             isUpdating= false;
+            gameManager.shopController.open();
         }
     }
 

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     
     public GridController gridController;
     public UIManager uiManager;
+    public ShopController shopController;
     
     public void advanceTurn()
     {
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
 
         //Update money ui
         uiManager.GetMoneyUI().updateMoneyUI(incomeTable, gridController.getRealWorldPosLookUp(), gridController.getCellSize());
+
 
         //Update debt and days left
         daysLeft -= 1;

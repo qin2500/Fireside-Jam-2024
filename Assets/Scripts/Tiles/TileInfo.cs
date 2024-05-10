@@ -13,4 +13,6 @@ public class TileInfo : ScriptableObject
     public Tile tile;
     public string[] tags;
     public GameTile gameTile;
+    public bool lateEval;
+    public int weight = 0;
 }   

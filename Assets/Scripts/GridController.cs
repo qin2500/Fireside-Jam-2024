@@ -2,16 +2,18 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class GridController : MonoBehaviour
 {
-    public TileInfo house;
-    public TileInfo house2;
+    public TileInfo tree;
+    public TileInfo lake;
 
     public Tilemap tileMap;
     public Tile mainGrass;  //Main grass tile
@@ -26,6 +28,7 @@ public class GridController : MonoBehaviour
     private bool buildMode = false;
     private TileInfo buildBrush = null;
     public GameObject newTurnButton;
+    public GameObject gameInfotext;
     public GameObject buildModeText;
 
     private System.Random random;
@@ -42,6 +45,7 @@ public class GridController : MonoBehaviour
     {
         random = new System.Random(System.DateTime.UtcNow.ToString().GetHashCode());
         initGrid();
+        populateGrid(10);
         drawGrid();
     }
 
@@ -90,6 +94,37 @@ public class GridController : MonoBehaviour
                 realWorldPosLookUp[i, j] = new Vector2(0,0);
             }
         }
+    }
+
+    void populateGrid(int n)
+    {
+        HashSet<int> Is = new HashSet<int>();
+        HashSet<int> Js = new HashSet<int>();
+
+        while (Is.Count < n) Is.Add(UnityEngine.Random.Range(0, grid_width)) ;
+        while (Js.Count < n) Js.Add(UnityEngine.Random.Range(0, grid_height));
+
+        int[] iarr = Is.ToArray();
+        int[] jarr = Js.ToArray();
+
+        for (int p=0; p<n; p++)
+        {
+            int i = iarr[p];
+            int j = jarr[p];
+
+            float coinFlip = UnityEngine.Random.Range(0f,1f);
+            Debug.Log(coinFlip);
+            if(coinFlip <= 0.6)
+            {
+                instantiateTile(tree, new Vector2Int(i - grid_width / 2, j - grid_height / 2));
+            }
+            else
+            {
+                instantiateTile(lake, new Vector2Int(i - grid_width / 2, j - grid_height / 2));
+            }
+        }
+
+
     }
 
     void drawGrid()
@@ -164,6 +199,7 @@ public class GridController : MonoBehaviour
         this.buildBrush = null;
         this.buildModeText.SetActive(false);
         this.newTurnButton.SetActive(true);
+        this.gameInfotext.SetActive(true);
     }
 
     public void buildTile(TileInfo tile, Vector2Int gridWorldPos)

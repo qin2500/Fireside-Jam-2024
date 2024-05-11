@@ -40,9 +40,21 @@ public class ShopController : MonoBehaviour
 
     public void makePurchase(int id)
     {
-        gridController.setBuildMode(tileLookUp.getTile(id));
-        gameManager.uiManager.GetMoneyUI().setMoneyBuffer(tileLookUp.getTile(id).cost * -1);
+        if(gameManager.getMoney() >= tileLookUp.getTile(id).cost)
+        {
+            gridController.setBuildMode(tileLookUp.getTile(id));
+            gameManager.uiManager.GetMoneyUI().setMoneyBuffer(tileLookUp.getTile(id).cost * -1);
+            gameManager.addMoney(tileLookUp.getTile(id).cost * -1);
+            close();
+        }
+        
+    }
+
+    public void skip()
+    {
         close();
+        gridController.newTurnButton.SetActive(true);
+        gameManager.debtInfoMenu.activate();
     }
 
     public TileInfo weightedRandomSelect()
@@ -58,6 +70,7 @@ public class ShopController : MonoBehaviour
             if(randomWeight <= 0)
             {
                 selectedTile = i;
+                break;
             }
             randomWeight -= i.weight;
         }

@@ -101,7 +101,7 @@ public class MoneyUI : MonoBehaviour
             coinValuePools.Clear();
             valuePoolsList.Clear();
             isUpdating= false;
-            gameManager.shopController.open();
+            gameManager.checkDebt();
         }
     }
 

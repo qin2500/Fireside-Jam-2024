@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee726c2861fc3943ad91e59edfb6f60, type: 3}
+  m_Name: LakeInfo
+  m_EditorClassIdentifier: 
+  id: 2
+  name: Lake
+  description: Gives +1
+  cost: 5
+  tile: {fileID: 11400000, guid: 38190c4235cf2e24689bd867d1192683, type: 2}
+  tags:
+  - Water
+  gameTile: {fileID: 11400000, guid: 8a4883bceae16df46ba39c37d98142fa, type: 2}
+  lateEval: 0
+  weight: 10
